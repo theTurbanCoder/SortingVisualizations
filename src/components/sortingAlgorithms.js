@@ -65,7 +65,7 @@ let selectionSort = (auxarray, animations, n) => {
        animations.push(['swap',minIndex,auxarray[i]])
        animations.push(['swap',i,auxarray[minIndex]])
        
-       swap(auxarray,i,minIndex)
+       swap(auxarray,i,minIndex);
        
     }
 }
