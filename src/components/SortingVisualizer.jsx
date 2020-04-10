@@ -1,0 +1,149 @@
+import React, {useState, useEffect} from 'react'
+import './SortingVisualizer.css';
+import {myBubbleSort} from './sortingAlgorithms'
+import {mySelectionSort} from './sortingAlgorithms'
+
+const randomFunction = (min, max) => {
+    return Math.floor(Math.random()*(max-min+1)+min)
+}
+
+
+const checkEqualArrays = (arr1, arr2) => {
+
+    if (arr1.length !== arr2.length) {
+        console.log(arr1.length,'length')
+        return false
+    }
+
+    for (let i = 0; i < arr1.length; i++) {
+        if(arr1[i] !== arr2[i]) {
+            console.log(arr1[i]+ ' !== '+ arr2[i] )
+            return false}        
+    }
+
+    return true
+}
+
+
+export default React.memo(props => {
+
+    const [array,setArray] = useState([])
+    const resetArray = () => {
+        const myArray= []
+        for (let index = 0; index < 120; index++) {
+            myArray.push(randomFunction(150,500))
+        }
+       setArray(myArray)
+    // setArray([5,15,10,20,18,11,19,50,16,13,22,35,3])
+    }
+    
+    const bubbleSort = () => {
+        const jsSortedArray = array.slice().sort((a,b) => a-b)
+        const [auxArray, animations] = myBubbleSort(array, array.length)
+        
+        console.log(checkEqualArrays(jsSortedArray, auxArray))
+
+        for (let i=0;i<animations.length;i++){
+            const isColorChange = (i % 4 === 0) || (i % 4 === 1)
+            const arrayBars = document.getElementsByClassName('array-bar');
+            if (isColorChange) {
+                
+                const [barOneIdx, barTwoIdx] = animations[i]
+                // console.log(barOneIdx, barTwoIdx, animations[i])
+                const barOneStyle = arrayBars[barOneIdx].style
+                const barTwoStyle = arrayBars[barTwoIdx].style
+
+                const color = (i % 4 === 0 )? 'red': 'turquoise'
+
+                setTimeout(() => {
+                    
+                    barOneStyle.backgroundColor = color
+                    barTwoStyle.backgroundColor = color
+                }, i*10)
+
+            } else {
+                const [barOneIdx, newHeight] = animations[i]
+                if(barOneIdx !== -1){
+                const barOneStyle = arrayBars[barOneIdx].style
+                setTimeout(() => {
+                    barOneStyle.height = `${newHeight}px`
+                }, i*10)
+                }
+
+                
+            }
+        }
+
+    }
+    
+    const mergeSort = () => {
+    }
+
+    const quickSort = () => {
+        
+    }
+
+    const heapSort = () => {
+        
+    }
+
+    const selectionSort = () =>{
+        
+        const jsSortedArray = array.slice().sort((a,b) => a-b)
+        const [auxArray, animations] = mySelectionSort(array, array.length)
+        
+       
+
+        for (let i = 0; i < animations.length; i++) {
+            const isColorChange = (animations[i][0]  === 'comparison1') || (animations[i][0]  === 'comparison2')
+            const arrayBars = document.getElementsByClassName('array-bar');
+            
+            if(isColorChange) {
+
+                const [temp,barOneIdx, barTwoIdx] = animations[i]
+                const barOneStyle = arrayBars[barOneIdx].style
+                const barTwoStyle = arrayBars[barTwoIdx].style
+                const color = (animations[i][0]  === 'comparison1') ? 'red': 'turquoise'
+
+                setTimeout(() => {
+                    
+                    barOneStyle.backgroundColor = color
+                    barTwoStyle.backgroundColor = color
+                }, i*50)
+            }
+          
+            else {
+                const [temp,barOneIdx, newHeight] = animations[i]
+            
+                const barOneStyle = arrayBars[barOneIdx].style
+                setTimeout(() => {
+                    barOneStyle.height = `${newHeight}px`
+                }, i*50)
+                }
+        //     }
+            
+        }
+    }
+    
+
+    useEffect(()=>{
+        resetArray()
+    },[])
+
+   
+    return(
+        <div className='array-container'>
+        {array.map((value,idx) => {
+            return  <div className='array-bar' style={{height: `${value}px`}} key={idx}></div>
+        })}
+        <button onClick={() => resetArray()} > Generate New Array</button>
+        <button onClick={() => bubbleSort()} > Bubble Sort</button>
+        <button onClick={() => mergeSort()} > Merge Sort</button>
+        <button onClick={() => quickSort()} > Quick Sort</button>
+        <button onClick={() => heapSort()} > Heap Sort</button>
+        <button onClick={() => selectionSort()} > Selection Sort</button>
+        </div>
+     )
+
+
+})
