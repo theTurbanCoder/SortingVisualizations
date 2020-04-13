@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import './SortingVisualizer.css';
 import {myBubbleSort} from './sortingAlgorithms'
-import {mySelectionSort} from './sortingAlgorithms'
+import {mySelectionSort, myInsertionSort} from './sortingAlgorithms'
 
 const randomFunction = (min, max) => {
     return Math.floor(Math.random()*(max-min+1)+min)
@@ -87,6 +87,51 @@ export default React.memo(props => {
         
     }
 
+    const insertionSort = () => {
+        const jsSortedArray = array.slice().sort((a,b) => a-b)
+        const [auxArray, animations] = myInsertionSort(array, array.length)
+        
+        // console.log(checkEqualArrays(jsSortedArray,auxArray))
+        // console.log(animations)
+
+        for (let i = 0; i < animations.length; i++) {
+            
+            const isColorChange = (animations[i][0] === 'comparison1') || (animations[i][0] === 'comparison2')
+            const arrayBars = document.getElementsByClassName('array-bar')
+
+            if(isColorChange){
+                const [_, barOneIdx, barTwoIdx] = animations[i]
+                // console.log('tatat')
+                const barOneStyle = arrayBars[barOneIdx].style
+                const barTwoStyle = arrayBars[barTwoIdx].style
+                const color = (animations[i][0]  === 'comparison1' ) ? 'red': 'turquoise'
+
+                setTimeout(() => {
+                    barOneStyle.backgroundColor = color
+                    barTwoStyle.backgroundColor = color
+                }, i*50)
+
+            }
+
+            else{
+                const [_,barOneIdx, newHeight] = animations[i]
+
+                // console.log(barOneIdx)
+
+                const barOneStyle = arrayBars[barOneIdx].style
+
+                setTimeout(() => {
+
+                    barOneStyle.backgroundColor = 'turquoise'
+                    barOneStyle.height = `${newHeight}px`
+
+                }, i*50)
+
+            }
+            
+        }
+    }
+
     const selectionSort = () =>{
         
         const jsSortedArray = array.slice().sort((a,b) => a-b)
@@ -100,7 +145,7 @@ export default React.memo(props => {
             
             if(isColorChange) {
 
-                const [temp,barOneIdx, barTwoIdx] = animations[i]
+                const [_,barOneIdx, barTwoIdx] = animations[i]
                 const barOneStyle = arrayBars[barOneIdx].style
                 const barTwoStyle = arrayBars[barTwoIdx].style
                 const color = (animations[i][0]  === 'comparison1') ? 'red': 'turquoise'
@@ -113,7 +158,7 @@ export default React.memo(props => {
             }
           
             else {
-                const [temp,barOneIdx, newHeight] = animations[i]
+                const [_,barOneIdx, newHeight] = animations[i]
             
                 const barOneStyle = arrayBars[barOneIdx].style
                 setTimeout(() => {
@@ -142,6 +187,7 @@ export default React.memo(props => {
         <button onClick={() => quickSort()} > Quick Sort</button>
         <button onClick={() => heapSort()} > Heap Sort</button>
         <button onClick={() => selectionSort()} > Selection Sort</button>
+        <button onClick={() => insertionSort()} > Insertion Sort</button>
         </div>
      )
 

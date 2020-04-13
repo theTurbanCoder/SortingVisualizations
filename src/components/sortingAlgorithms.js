@@ -70,6 +70,41 @@ let selectionSort = (auxarray, animations, n) => {
     }
 }
 
+export const myInsertionSort = (array,n) => {
+
+    const animations = []
+    let auxArray = array.slice()
+
+    insertionSort(auxArray, animations, n)
+    return [auxArray , animations]
+}
+
+let insertionSort = (auxArray,animations, n) => {
+
+    for (let i = 1; i < n; i++) {
+        
+        let key = auxArray[i]
+        let j = i-1
+
+        animations.push(["comparison1",j,i])
+        // animations.push(["comparison1",j,i])
+        while(j >= 0 && auxArray[j] > key){
+
+            animations.push(["comparison1",j+1,j])
+            auxArray[j + 1] = auxArray[j] 
+            animations.push(['swap', j+1, auxArray[j]])
+            // animations.push(['swap', j, auxArray[j+1]])
+            j = j - 1
+
+        }
+
+        auxArray[j+1] = key
+        animations.push(['swap',j+1, key])
+        // animations.push(["comparison1",j+1,i])
+    }
+
+}
+
 let swap = (auxArray, index1, index2) => {
 
     let temp = auxArray[index1]
