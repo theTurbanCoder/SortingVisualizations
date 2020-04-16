@@ -105,6 +105,78 @@ let insertionSort = (auxArray,animations, n) => {
 
 }
 
+
+export const myMergeSort = (array , n) => {
+
+    // const animations = []
+    let auxArray = array.slice()
+    mergeSort(auxArray, 0, n-1)
+
+    return [auxArray]
+}
+
+
+let mergeSort = (A, start, end) => {
+
+    if (start < end)
+    {
+        let mid = Math.floor((start+end) / 2)
+        mergeSort(A, start, mid)
+        mergeSort(A,mid+1, end)
+        mergeArray(A, start, mid , end)
+    }
+    else return;
+
+}
+
+
+let mergeArray = (A, start, mid, end) => {
+
+    let temp = []
+
+    let n = (end-start+1)
+
+    for(let i=0; i < n; i++ ){
+        temp.push(0)
+    }
+
+
+    let [i,j,k] = [start, mid+1, 0]
+
+    while(i <= mid && j <= end)
+    {
+        if (A[i] <= A[j]){
+            temp[k] = A[i]
+            ++k;++i
+        }
+        else{
+            temp[k] = A[j]
+            ++k;++j
+        }
+    }
+
+
+
+    while(i <= mid) {
+        temp[k] = A[i]
+        ++k; ++i
+    }
+
+
+    while( j<= end)
+    {
+        temp[k] = A[j]
+        ++k;++j
+    }
+
+
+    for(let i=start;i<=end; i++)
+    {
+        A[i] = temp[i-start]
+    }
+
+}
+
 let swap = (auxArray, index1, index2) => {
 
     let temp = auxArray[index1]

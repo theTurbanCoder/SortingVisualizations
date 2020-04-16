@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import './SortingVisualizer.css';
 import {myBubbleSort} from './sortingAlgorithms'
-import {mySelectionSort, myInsertionSort} from './sortingAlgorithms'
+import {mySelectionSort, myInsertionSort, myMergeSort} from './sortingAlgorithms'
 
 const randomFunction = (min, max) => {
     return Math.floor(Math.random()*(max-min+1)+min)
@@ -77,6 +77,14 @@ export default React.memo(props => {
     }
     
     const mergeSort = () => {
+
+        const [auxArray] = myMergeSort(array,array.length)
+        const jsSortedArray = array.slice().sort((a,b) => a-b)
+        console.log(auxArray)
+        console.log(checkEqualArrays(auxArray, jsSortedArray))
+
+
+
     }
 
     const quickSort = () => {
