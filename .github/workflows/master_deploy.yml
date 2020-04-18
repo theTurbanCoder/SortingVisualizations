@@ -25,4 +25,7 @@ jobs:
           git remote set-url origin https://${{secrets.PERSONAL_ACCESS_TOKEN}}@github.com/theTurbanCoder/SortingVisualizations.git 
 
       - name: Deploy Build File
-        run: npm run deploy
+        run: |
+          npm run deploy
+          git config --global user.email ${{ secrets.EMAIL }}
+          git config --global user.password ${{ secrets.USERNAME }}
