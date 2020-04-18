@@ -23,7 +23,7 @@ const checkEqualArrays = (arr1, arr2) => {
 
     return true
 }
-
+//
 
 export default React.memo(props => {
 
