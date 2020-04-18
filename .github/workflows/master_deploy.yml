@@ -24,6 +24,8 @@ jobs:
           git config --global user.name ${{secrets.USERNAME}}
           git remote set-url origin https://${{secrets.PERSONAL_ACCESS_TOKEN}}@github.com/${{secrets.USERNAME}}/SortingVisualizations.git 
           npm run deploy
+          npm install -g serve
+          serve -s build
         
           
           
