@@ -16,7 +16,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - name: Install Packages
-        run: yarn install
+        run: npm install
 
       - name: Deploy To Github Pages
         run:  |
@@ -25,10 +25,4 @@ jobs:
           git remote set-url origin https://${{secrets.PERSONAL_ACCESS_TOKEN}}@github.com/theTurbanCoder/SortingVisualizations.git 
 
       - name: Deploy Build File
-        run: yarn run deploy
-
-      - name: Deploy To Github Pages
-        run:  |
-          git config --global user.email ${{ secrets.EMAIL }}
-          git config --global user.password ${{ secrets.USERNAME }}
-          git remote set-url origin https://${{secrets.PERSONAL_ACCESS_TOKEN}}@github.com/theTurbanCoder/SortingVisualizations.git 
+        run: npm run deploy
