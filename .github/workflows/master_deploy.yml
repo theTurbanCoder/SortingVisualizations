@@ -19,10 +19,7 @@ jobs:
         run: yarn install
       - name: Deploy To Github Pages
         run:  |
-          git config --global user.email ${{ secrets.GITHUB_EMAIL }}
-          git config --global user.password ${{ secrets.GITHUB_USERNAME }}
-          git remote set-url origin https://${{secrets.GITHUB_PERSONAL_ACCESS_TOKEN}}@github.com/theTurbanCoder/SortingVisualizations.git 
+          git config --global user.email ${{ secrets.EMAIL }}
+          git config --global user.password ${{ secrets.USERNAME }}
+          git remote set-url origin https://${{secrets.PERSONAL_ACCESS_TOKEN}}@github.com/theTurbanCoder/SortingVisualizations.git 
           yarn run deploy
-          
-
-      - continue-on-error: false
