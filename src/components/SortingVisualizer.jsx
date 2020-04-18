@@ -31,10 +31,10 @@ export default React.memo(props => {
     const resetArray = () => {
         const myArray= []
         for (let index = 0; index < 120; index++) {
-            myArray.push(randomFunction(150,500))
+            myArray.push(randomFunction(5,750))
         }
        setArray(myArray)
-    // setArray([5,15,10,20,18,11,19,50,16,13,22,35,3])
+    
     }
     
     const bubbleSort = () => {
@@ -78,10 +78,39 @@ export default React.memo(props => {
     
     const mergeSort = () => {
 
-        const [auxArray] = myMergeSort(array,array.length)
-        const jsSortedArray = array.slice().sort((a,b) => a-b)
-        console.log(auxArray)
-        console.log(checkEqualArrays(auxArray, jsSortedArray))
+        const [auxArray, animations] = myMergeSort(array,array.length)
+        // const jsSortedArray = array.slice().sort((a,b) => a-b)
+
+        for (let i = 0; i < animations.length; i++) {
+            
+            const isColorChange = (i % 3 !== 2)
+            const arrayBars = document.getElementsByClassName('array-bar')
+
+            if(isColorChange) {
+                const color = (i % 3 === 0) ? 'red' : 'turquoise'
+                const [barOneIdx, barTwoIdx] = animations[i]
+               
+                const barOneStyle = arrayBars[barOneIdx].style
+                const barTwoStyle = arrayBars[barTwoIdx].style
+
+                setTimeout(() => {
+                    barOneStyle.backgroundColor = color
+                    barTwoStyle.backgroundColor = color
+                },i*50)
+            }
+
+            else{
+                const [barOneIdx, newHeight] = animations[i]
+                const barOneStyle = arrayBars[barOneIdx].style
+                setTimeout(() => {
+                    barOneStyle.height = `${newHeight}px`
+                }, i*50)
+
+
+                
+            }
+            
+        }
 
 
 

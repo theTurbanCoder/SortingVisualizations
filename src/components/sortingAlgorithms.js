@@ -108,65 +108,76 @@ let insertionSort = (auxArray,animations, n) => {
 
 export const myMergeSort = (array , n) => {
 
-    // const animations = []
+    const animations = []
     let auxArray = array.slice()
-    mergeSort(auxArray, 0, n-1)
+    mergeSort(auxArray, 0, n-1, animations)
 
-    return [auxArray]
+    return [auxArray, animations]
 }
 
 
-let mergeSort = (A, start, end) => {
+let mergeSort = (A, start, end, animations) => {
 
     if (start < end)
     {
         let mid = Math.floor((start+end) / 2)
-        mergeSort(A, start, mid)
-        mergeSort(A,mid+1, end)
-        mergeArray(A, start, mid , end)
+        mergeSort(A, start, mid, animations)
+        mergeSort(A,mid+1, end, animations)
+        mergeArray(A, start, mid , end, animations)
     }
     else return;
 
 }
 
 
-let mergeArray = (A, start, mid, end) => {
+let mergeArray = (A, start, mid, end, animations) => {
 
     let temp = []
 
     let n = (end-start+1)
 
-    for(let i=0; i < n; i++ ){
-        temp.push(0)
-    }
 
 
     let [i,j,k] = [start, mid+1, 0]
 
     while(i <= mid && j <= end)
     {
+        animations.push([i,j])
+        animations.push([i,j])
         if (A[i] <= A[j]){
-            temp[k] = A[i]
-            ++k;++i
+            // temp[k] = A[i]
+            animations.push([temp.length + start, A[i]])
+            temp.push(A[i++])
+            ++k;
         }
         else{
-            temp[k] = A[j]
-            ++k;++j
+            // temp[k] = A[j]
+            animations.push([temp.length + start, A[j]])
+            temp.push(A[j++])
+            ++k;
         }
     }
 
 
 
     while(i <= mid) {
-        temp[k] = A[i]
-        ++k; ++i
+        animations.push([i,i])
+        animations.push([i,i])
+        animations.push([temp.length + start, A[i]])
+        // temp[k] = A[i]
+        temp.push(A[i++])
+        ++k
     }
 
 
     while( j<= end)
     {
-        temp[k] = A[j]
-        ++k;++j
+        // temp[k] = A[j]
+        animations.push([j,j])
+        animations.push([j,j])
+        animations.push([temp.length + start, A[j]])
+        temp.push(A[j++])
+        ++k;
     }
 
 
