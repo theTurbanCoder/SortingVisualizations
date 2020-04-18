@@ -78,7 +78,7 @@ export default React.memo(props => {
     
     const mergeSort = () => {
 
-        const [auxArray, animations] = myMergeSort(array,array.length)
+        const [, animations] = myMergeSort(array,array.length)
         // const jsSortedArray = array.slice().sort((a,b) => a-b)
 
         for (let i = 0; i < animations.length; i++) {
@@ -125,8 +125,8 @@ export default React.memo(props => {
     }
 
     const insertionSort = () => {
-        const jsSortedArray = array.slice().sort((a,b) => a-b)
-        const [auxArray, animations] = myInsertionSort(array, array.length)
+        // const jsSortedArray = array.slice().sort((a,b) => a-b)
+        const [, animations] = myInsertionSort(array, array.length)
         
         // console.log(checkEqualArrays(jsSortedArray,auxArray))
         // console.log(animations)
@@ -137,7 +137,7 @@ export default React.memo(props => {
             const arrayBars = document.getElementsByClassName('array-bar')
 
             if(isColorChange){
-                const [_, barOneIdx, barTwoIdx] = animations[i]
+                const [, barOneIdx, barTwoIdx] = animations[i]
                 // console.log('tatat')
                 const barOneStyle = arrayBars[barOneIdx].style
                 const barTwoStyle = arrayBars[barTwoIdx].style
@@ -151,7 +151,7 @@ export default React.memo(props => {
             }
 
             else{
-                const [_,barOneIdx, newHeight] = animations[i]
+                const [,barOneIdx, newHeight] = animations[i]
 
                 // console.log(barOneIdx)
 
@@ -171,8 +171,8 @@ export default React.memo(props => {
 
     const selectionSort = () =>{
         
-        const jsSortedArray = array.slice().sort((a,b) => a-b)
-        const [auxArray, animations] = mySelectionSort(array, array.length)
+        // const jsSortedArray = array.slice().sort((a,b) => a-b)
+        const [, animations] = mySelectionSort(array, array.length)
         
        
 
@@ -182,7 +182,7 @@ export default React.memo(props => {
             
             if(isColorChange) {
 
-                const [_,barOneIdx, barTwoIdx] = animations[i]
+                const [,barOneIdx, barTwoIdx] = animations[i]
                 const barOneStyle = arrayBars[barOneIdx].style
                 const barTwoStyle = arrayBars[barTwoIdx].style
                 const color = (animations[i][0]  === 'comparison1') ? 'red': 'turquoise'
@@ -195,7 +195,7 @@ export default React.memo(props => {
             }
           
             else {
-                const [_,barOneIdx, newHeight] = animations[i]
+                const [,barOneIdx, newHeight] = animations[i]
             
                 const barOneStyle = arrayBars[barOneIdx].style
                 setTimeout(() => {

@@ -134,11 +134,11 @@ let mergeArray = (A, start, mid, end, animations) => {
 
     let temp = []
 
-    let n = (end-start+1)
+    // let n = (end-start+1)
 
 
 
-    let [i,j,k] = [start, mid+1, 0]
+    let [i,j] = [start, mid+1, 0]
 
     while(i <= mid && j <= end)
     {
@@ -148,13 +148,13 @@ let mergeArray = (A, start, mid, end, animations) => {
             // temp[k] = A[i]
             animations.push([temp.length + start, A[i]])
             temp.push(A[i++])
-            ++k;
+      
         }
         else{
             // temp[k] = A[j]
             animations.push([temp.length + start, A[j]])
             temp.push(A[j++])
-            ++k;
+
         }
     }
 
@@ -166,7 +166,7 @@ let mergeArray = (A, start, mid, end, animations) => {
         animations.push([temp.length + start, A[i]])
         // temp[k] = A[i]
         temp.push(A[i++])
-        ++k
+    
     }
 
 
@@ -177,7 +177,6 @@ let mergeArray = (A, start, mid, end, animations) => {
         animations.push([j,j])
         animations.push([temp.length + start, A[j]])
         temp.push(A[j++])
-        ++k;
     }
 
 
