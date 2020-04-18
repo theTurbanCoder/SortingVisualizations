@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [10.x, 12.x]
+        node-version: [12.x]
     steps:
       - uses: actions/checkout@v1
       - name: Use Node.js ${{ matrix.node-version }}
@@ -22,4 +22,4 @@ jobs:
           git config --global user.email ${{ secrets.EMAIL }}
           git config --global user.password ${{ secrets.USERNAME }}
           git remote set-url origin https://${{secrets.PERSONAL_ACCESS_TOKEN}}@github.com/theTurbanCoder/SortingVisualizations.git 
-          yarn run build
+          yarn run deploy
