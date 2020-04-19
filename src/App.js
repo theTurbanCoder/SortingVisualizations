@@ -12,11 +12,11 @@ import { createBrowserHistory } from 'history';
 const trackingID = "UA-164002348-1"
 
 
-
+ReactGA.initialize(trackingID)
 const history = createBrowserHistory()
 
 history.listen((location) => {
-  ReactGA.initialize(trackingID)
+ 
   ReactGA.set({page: location.pathname})
   ReactGA.pageview(location.pathname)
 })
