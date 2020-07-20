@@ -5,7 +5,7 @@ import { djikstra, shortestPath } from "../algorithms/djikstra"
 const START_NODE_ROW = 10
 const START_NODE_COL = 15
 const FINISH_NODE_ROW = 10
-const FINISH_NODE_COL = 35
+const FINISH_NODE_COL = 45
 
 const createNode = (row, col) => {
  return {
@@ -29,21 +29,36 @@ export default React.memo((props) => {
   const inorderNodes = djikstra(djNodes, startNode, finishNode)
   const shortestNodes = shortestPath(finishNode)
 
-  //   console.log(shortestNodes, "shortestNodes")
+  console.log(shortestNodes, "shortestNodes")
   animateDjikstra(inorderNodes, shortestNodes)
  }
 
  const animateDjikstra = (visitedInorder, nodesInShortestPath) => {
   for (let i = 0; i < visitedInorder.length; i++) {
-   console.log("setTimeout")
-   // const node = visitedInorder[i]
-   // const newGrid = myNodes.slice()
-   // const newNode = { ...node, isVisited: true }
+   if (i === visitedInorder.length - 1) {
+    setTimeout(() => {
+     animateShortestPath(nodesInShortestPath)
+    }, 10 * i)
+    return
+   }
 
-   // newGrid[node.row][node.col] = newNode
    setTimeout(() => {
-    // setMyNodes(newGrid)
-   }, 10000 * 10)
+    const node = visitedInorder[i]
+    document.getElementById(`node-${node.row}-${node.col}`).className =
+     "node node-visited"
+   }, 10 * i)
+  }
+ }
+
+ const animateShortestPath = (nodesInShortestPath) => {
+  console.log("in function")
+  for (let i = 0; i < nodesInShortestPath.length; i++) {
+   setTimeout(() => {
+    const node = nodesInShortestPath[i]
+    console.log(node, "test")
+    document.getElementById(`node-${node.row}-${node.col}`).className =
+     "node node-shortest-path"
+   }, 50 * i)
   }
  }
 
