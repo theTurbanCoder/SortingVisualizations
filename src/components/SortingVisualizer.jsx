@@ -6,6 +6,7 @@ import {
  myInsertionSort,
  myMergeSort,
  lomutosQuickSort,
+ hoaresQuickSort,
 } from "./sortingAlgorithms"
 
 const randomFunction = (min, max) => {
@@ -136,6 +137,38 @@ export default React.memo((props) => {
   }
  }
 
+ const quickSort2 = () => {
+  const jsSortedArray = array.slice().sort((a, b) => a - b)
+  const [auxArray, animations] = hoaresQuickSort(array, array.length)
+
+  animations.map((value, idx) => {
+   const arrayBars = document.getElementsByClassName("array-bar")
+
+   const isColorChange = value[0] === "compare"
+   if (isColorChange) {
+    const [, barOneIdx, barTwoIdx] = animations[idx]
+    const barOneStyle = arrayBars[barOneIdx].style
+    const barTwoStyle = arrayBars[barTwoIdx].style
+    const color = isColorChange ? "red" : "turquoise"
+    setTimeout(() => {
+     barOneStyle.backgroundColor = color
+     barTwoStyle.backgroundColor = color
+    }, idx * 50)
+   } else {
+    const [, barOneIdx, newHeight] = animations[idx]
+
+    // console.log(barOneIdx)
+
+    const barOneStyle = arrayBars[barOneIdx].style
+
+    setTimeout(() => {
+     barOneStyle.backgroundColor = "turquoise"
+     barOneStyle.height = `${newHeight}px`
+    }, idx * 50)
+   }
+  })
+ }
+
  const heapSort = () => {}
 
  const insertionSort = () => {
@@ -219,7 +252,8 @@ export default React.memo((props) => {
    <button onClick={() => resetArray()}> Generate New Array</button>
    <button onClick={() => bubbleSort()}> Bubble Sort</button>
    <button onClick={() => mergeSort()}> Merge Sort</button>
-   <button onClick={() => quickSort1()}> Quick Sort</button>
+   <button onClick={() => quickSort1()}> Lomutos Quick Sort </button>
+   <button onClick={() => quickSort2()}> Hoares Quick Sort </button>
    <button onClick={() => heapSort()}> Heap Sort</button>
    <button onClick={() => selectionSort()}> Selection Sort</button>
    <button onClick={() => insertionSort()}> Insertion Sort</button>

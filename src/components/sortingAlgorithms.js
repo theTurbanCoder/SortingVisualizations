@@ -95,6 +95,48 @@ export const lomutosQuickSort = (array, n) => {
  return [auxArray, animations]
 }
 
+export const hoaresQuickSort = (array, n) => {
+ const auxArray = array.slice()
+ const animations = []
+ hoares(auxArray, animations, 0, n - 1)
+ return [auxArray, animations]
+}
+
+const hoares = (auxArray, animations, low, high) => {
+ if (low < high) {
+  let pi = hoaresPartition(auxArray, animations, low, high)
+  hoares(auxArray, animations, low, pi)
+  hoares(auxArray, animations, pi + 1, high)
+ }
+}
+
+const hoaresPartition = (auxarray, animations, low, high) => {
+ let pivot = auxarray[low]
+ let i = low - 1
+ let j = high + 1
+
+ while (true) {
+  do {
+   i++
+   animations.push(["compare", i, low])
+  } while (auxarray[i] < pivot)
+  animations.push(["compare", i, low])
+  do {
+   j--
+   animations.push(["compare", j, low])
+  } while (auxarray[j] > pivot)
+  animations.push(["compare", j, low])
+  if (i >= j) {
+   animations.push(["compare", i, j])
+   return j
+  }
+
+  animations.push(["swap", i, auxarray[j]])
+  animations.push(["swap", j, auxarray[i]])
+  swap(auxarray, i, j)
+ }
+}
+
 const lomutos = (auxArray, animations, low, high) => {
  if (low < high) {
   let pi = partition(auxArray, animations, low, high)
